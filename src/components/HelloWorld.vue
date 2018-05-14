@@ -16,6 +16,14 @@
         >{{option.name}}</li>
       </ul>
     </div>
+    <div class="testDynamic" :style="{marginTop: '50px'}">
+      <ul class="switchWrapper">
+        <li class="switchItem" @click="changeCom('DefaultCom')">1</li>
+        <li class="switchItem" @click="changeCom('FirstCom')">2</li>
+        <li class="switchItem" @click="changeCom('secondCom')">3</li>
+      </ul>
+      <component :is="currentComponent"></component>
+    </div>
   </div>
 </template>
 
@@ -23,6 +31,9 @@
 import { getTestData } from "../axios/api";
 import testData from '../../static/data'
 import Items from './Items'
+const DefaultCom = () => import('./DefaultCom.vue')
+const FirstCom = () => import('./FirstCom.vue')
+const SecondCom = () => import('./SecondCom.vue')
 export default {
   data() {
     return {
@@ -140,7 +151,8 @@ export default {
             }
           ]
         }
-      ]
+      ],
+      currentComponent: 'DefaultCom'
     }
   },
   created() {
@@ -218,10 +230,16 @@ export default {
       })
       this.resultData.splice(index+1)
       this.resultData.push.apply(this.resultData, that.tempOptions)
+    },
+    changeCom(name) {
+      this.currentComponent = name
     }
   },
   components: {
-    Items
+    Items,
+    DefaultCom,
+    FirstCom,
+    SecondCom
   }
 };
 </script>
@@ -268,6 +286,9 @@ input {
 }
 .downList > li:last-child {
   border-bottom: none;
+}
+.switchItem{
+  cursor: pointer;
 }
 </style>
 
