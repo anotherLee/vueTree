@@ -1,7 +1,7 @@
 <template>
   <div class="parent">
     <Items v-for="model in treedata" :model="model" :key="model.id"></Items>
-    <div class="wrapper" v-for="(item, index) in resultData" :key="item.code" v-if="false">
+    <div class="wrapper" v-for="(item, index) in resultData" :key="item.code" :style="{marginTop: '50px'}">
       <input type="text"
       class="input"
       readonly
@@ -16,7 +16,6 @@
         >{{option.name}}</li>
       </ul>
     </div>
-
   </div>
 </template>
 
